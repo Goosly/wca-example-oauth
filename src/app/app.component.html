@@ -1,0 +1,30 @@
+<div class="center">
+  <h1>Example: WCA OAuth, get competitions, get WCIF</h1>
+
+<!-- LOGIN -->
+  <div *ngIf="! apiService.oauthToken">
+    <button (click)="handleLoginToWca()">First: login</button><br>
+  </div>
+
+<!-- SELECT COMP -->
+  <div *ngIf="apiService.oauthToken && ! competitionId">
+    <p>Welcome!</p>
+    <p>Select a competition:</p>
+    <p *ngFor="let competitionId of competitionsToChooseFrom">
+      <button (click)="handleCompetitionSelected(competitionId)">{{competitionId}}</button>
+    </p>
+    <p *ngIf="!!competitionsToChooseFrom && competitionsToChooseFrom.length === 0">You don't have any competition available :-(</p>
+  </div>
+
+<!-- INFORMATION ABOUT COMP -->
+  <div *ngIf="competitionId && wcif">
+    <p> Selected competition: {{ competitionId }}<br>
+    {{ numberOfEvents }} events found!</p>
+  </div>
+
+  <div *ngIf="competitionId && wcif">
+    <p> WCIF:</p>
+    <p> {{ wcif | json }} </p>
+  </div>
+
+</div>
